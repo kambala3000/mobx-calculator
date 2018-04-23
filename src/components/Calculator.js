@@ -18,10 +18,22 @@ class Calculator extends Component {
       resetCurrent,
       resetAll,
       changeSign,
-      createDecimal
+      createDecimal,
+      rememberOperation,
+      calcFinalResult
     } = this.props.calculationsStore;
 
-    const { FULL_RESET, RESET, CHANGE_SIGN, DECIMAL } = OPERATIONS;
+    const {
+      FULL_RESET,
+      RESET,
+      CHANGE_SIGN,
+      DECIMAL,
+      DIVIDE,
+      MULTIPLY,
+      MINUS,
+      PLUS,
+      EQUALLY
+    } = OPERATIONS;
 
     if (Number.isInteger(symbol)) return addToCurrent(symbol);
 
@@ -37,6 +49,21 @@ class Calculator extends Component {
         break;
       case DECIMAL:
         createDecimal();
+        break;
+      case DIVIDE:
+        rememberOperation('DIVIDE');
+        break;
+      case MULTIPLY:
+        rememberOperation('MULTIPLY');
+        break;
+      case MINUS:
+        rememberOperation('MINUS');
+        break;
+      case PLUS:
+        rememberOperation('PLUS');
+        break;
+      case EQUALLY:
+        calcFinalResult();
         break;
       default:
         break;
@@ -77,6 +104,7 @@ class Calculator extends Component {
             displayedSymbol={PERCENTAGE}
             fontSize="28px"
             actionMethod={this.handleButtonPress}
+            isDisabled
           />
           <ActionButton
             displayedSymbol={DIVIDE}

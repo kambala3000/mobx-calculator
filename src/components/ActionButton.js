@@ -11,7 +11,8 @@ class ActionButton extends Component {
     fontSize: PropTypes.string,
     isOrange: PropTypes.bool,
     isDoubled: PropTypes.bool,
-    alignFromStart: PropTypes.bool
+    alignFromStart: PropTypes.bool,
+    isDisabled: PropTypes.bool
   };
 
   handleClick = () => {
@@ -27,7 +28,8 @@ class ActionButton extends Component {
       fontSize,
       isOrange,
       isDoubled,
-      alignFromStart
+      alignFromStart,
+      isDisabled
     } = this.props;
 
     return (
@@ -38,6 +40,7 @@ class ActionButton extends Component {
         isDoubled={isDoubled}
         alignFromStart={alignFromStart}
         onClick={this.handleClick}
+        disabled={isDisabled}
       >
         <span tabIndex="-1">{displayedSymbol}</span>
       </SCButton>
@@ -64,7 +67,7 @@ const SCButton = styled.button`
   cursor: pointer;
   user-select: none;
 
-  &:active {
+  &:not(:disabled):active {
     background-color: ${({ isOrange }) => (isOrange ? '#DE7D0F' : '#c2c3c6')};
   }
 
