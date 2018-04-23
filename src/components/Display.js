@@ -7,7 +7,7 @@ const Display = ({ currentValue }) => {
 
   return (
     <SCDisplayWrapp>
-      <SCValue>{formattedValue}</SCValue>
+      <SCValue valueLength={formattedValue.length}>{formattedValue}</SCValue>
     </SCDisplayWrapp>
   );
 };
@@ -28,7 +28,17 @@ const SCDisplayWrapp = styled.div`
 `;
 
 const SCValue = styled.div`
-  font: 300 64px/1 'Lato', sans-serif;
+  font-weight: 300;
+  font-family: 'Lato', sans-serif;
+  line-height: 1;
+
+  font-size: ${({ valueLength }) => {
+    if (valueLength < 9) return '64px';
+    if (valueLength < 16) return '32px';
+    if (valueLength < 30) return '16px';
+    return '13px';
+  }};
+
   text-align: right;
   color: #fff;
 `;

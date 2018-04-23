@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import { CALC_METHODS } from '../utils/constants';
+import { CALC_METHODS, MAX_NUMS } from '../utils/constants';
 
 class Calculations {
   @observable accumulator = 0;
@@ -9,6 +9,8 @@ class Calculations {
 
   @action.bound
   addToCurrent(val) {
+    if (this.currentValue.length === MAX_NUMS) return;
+
     const isValueInfinite = this.checkForInfinity();
 
     if (this.isClearNext || isValueInfinite) {
@@ -34,7 +36,6 @@ class Calculations {
 
   @action.bound
   resetAll() {
-    console.log('all reseted');
     this.accumulator = 0;
     this.currentValue = '0';
     this.currentOperation = '';
@@ -72,7 +73,6 @@ class Calculations {
     if (this.isClearNext) return;
 
     this.calcTempResult();
-    console.log(opeartionType);
 
     this.currentOperation = opeartionType;
     this.isClearNext = true;
@@ -85,7 +85,6 @@ class Calculations {
         this.accumulator,
         this.currentValue
       );
-      console.log(calculatedValue);
 
       this.currentValue = `${calculatedValue}`;
       this.accumulator = calculatedValue;

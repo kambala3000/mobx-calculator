@@ -17,3 +17,5 @@ export const CALC_METHODS = {
   MINUS: (a, b) => (+a * 10 - +b * 10) / 10,
   PLUS: (a, b) => (+a * 10 + +b * 10) / 10
 };
+
+export const MAX_NUMS = 40;
