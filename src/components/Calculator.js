@@ -6,72 +6,149 @@ import styled from 'styled-components';
 import Display from './Display';
 import ActionButton from './ActionButton';
 
+// constants
+import { OPERATIONS } from '../utils/constants';
+
 @inject('calculationsStore')
 @observer
 class Calculator extends Component {
-  render() {
+  handleButtonPress = symbol => {
     const {
-      currentValue,
       addToCurrent,
-      resetCurrent
+      resetCurrent,
+      resetAll,
+      changeSign,
+      createDecimal
     } = this.props.calculationsStore;
+
+    const { FULL_RESET, RESET, CHANGE_SIGN, DECIMAL } = OPERATIONS;
+
+    if (Number.isInteger(symbol)) return addToCurrent(symbol);
+
+    switch (symbol) {
+      case FULL_RESET:
+        resetAll();
+        break;
+      case RESET:
+        resetCurrent();
+        break;
+      case CHANGE_SIGN:
+        changeSign();
+        break;
+      case DECIMAL:
+        createDecimal();
+        break;
+      default:
+        break;
+    }
+  };
+
+  render() {
+    const { currentValue } = this.props.calculationsStore;
+
+    const {
+      FULL_RESET,
+      RESET,
+      CHANGE_SIGN,
+      PERCENTAGE,
+      DIVIDE,
+      MULTIPLY,
+      MINUS,
+      PLUS,
+      EQUALLY,
+      DECIMAL
+    } = OPERATIONS;
+
+    const resetBtnTitle = Math.abs(currentValue) === 0 ? FULL_RESET : RESET;
 
     return (
       <SCCalculatorBase>
         <Display currentValue={currentValue} />
         <SCButtonsWrapp>
-          <ActionButton displayedSymbol="AC" actionMethod={resetCurrent} />
-          <ActionButton displayedSymbol="+/-" />
-          <ActionButton displayedSymbol="%" fontSize="28px" />
-          <ActionButton displayedSymbol="÷" fontSize="40px" isOrange />
           <ActionButton
-            displayedSymbol="7"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={resetBtnTitle}
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="8"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={CHANGE_SIGN}
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="9"
-            displayedValueHandler={addToCurrent}
-          />
-          <ActionButton displayedSymbol="×" isOrange />
-          <ActionButton
-            displayedSymbol="4"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={PERCENTAGE}
+            fontSize="28px"
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="5"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={DIVIDE}
+            fontSize="40px"
+            isOrange
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="6"
-            displayedValueHandler={addToCurrent}
-          />
-          <ActionButton displayedSymbol="—" isOrange />
-          <ActionButton
-            displayedSymbol="1"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={7}
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="2"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={8}
+            actionMethod={this.handleButtonPress}
           />
           <ActionButton
-            displayedSymbol="3"
-            displayedValueHandler={addToCurrent}
+            displayedSymbol={9}
+            actionMethod={this.handleButtonPress}
           />
-          <ActionButton displayedSymbol="+" isOrange />
           <ActionButton
-            displayedSymbol="0"
+            displayedSymbol={MULTIPLY}
+            actionMethod={this.handleButtonPress}
+            isOrange
+          />
+          <ActionButton
+            displayedSymbol={4}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={5}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={6}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={MINUS}
+            actionMethod={this.handleButtonPress}
+            isOrange
+          />
+          <ActionButton
+            displayedSymbol={1}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={2}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={3}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={PLUS}
+            actionMethod={this.handleButtonPress}
+            isOrange
+          />
+          <ActionButton
+            displayedSymbol={0}
+            actionMethod={this.handleButtonPress}
             borderRadiusPosition="bottom-left"
             isDoubled
             alignFromStart
           />
-          <ActionButton displayedSymbol="," />
           <ActionButton
-            displayedSymbol="="
+            displayedSymbol={DECIMAL}
+            actionMethod={this.handleButtonPress}
+          />
+          <ActionButton
+            displayedSymbol={EQUALLY}
+            actionMethod={this.handleButtonPress}
             borderRadiusPosition="bottom-right"
             isOrange
           />

@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 class ActionButton extends Component {
   static propTypes = {
-    displayedSymbol: PropTypes.string.isRequired,
-    displayedValueHandler: PropTypes.func,
-    actionMethod: PropTypes.func,
+    displayedSymbol: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
+    actionMethod: PropTypes.func.isRequired,
     borderRadiusPosition: PropTypes.string,
     fontSize: PropTypes.string,
     isOrange: PropTypes.bool,
@@ -15,11 +15,9 @@ class ActionButton extends Component {
   };
 
   handleClick = () => {
-    const { displayedSymbol, displayedValueHandler, actionMethod } = this.props;
+    const { displayedSymbol, actionMethod } = this.props;
 
-    if (displayedValueHandler) return displayedValueHandler(displayedSymbol);
-
-    actionMethod();
+    actionMethod(displayedSymbol);
   };
 
   render() {

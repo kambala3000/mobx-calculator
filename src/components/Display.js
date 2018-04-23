@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Display = ({ currentValue }) => {
+  const formattedValue = currentValue.replace('.', ',');
+
   return (
     <SCDisplayWrapp>
-      <SCValue>{currentValue}</SCValue>
+      <SCValue>{formattedValue}</SCValue>
     </SCDisplayWrapp>
   );
 };
