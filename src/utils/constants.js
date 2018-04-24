@@ -12,7 +12,10 @@ export const OPERATIONS = {
 };
 
 export const CALC_METHODS = {
-  DIVIDE: (a, b) => +a * 10 / +b / 10,
+  DIVIDE: (a, b) => {
+    if (+a === 0) return 0;
+    return +a * 10 / +b / 10;
+  },
   MULTIPLY: (a, b) => +a * 10 * +b / 10,
   MINUS: (a, b) => (+a * 10 - +b * 10) / 10,
   PLUS: (a, b) => (+a * 10 + +b * 10) / 10
