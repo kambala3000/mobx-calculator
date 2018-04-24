@@ -71,7 +71,7 @@ class Calculator extends Component {
   };
 
   render() {
-    const { currentValue } = this.props.calculationsStore;
+    const { currentValue, currentOperation } = this.props.calculationsStore;
 
     const {
       FULL_RESET,
@@ -109,8 +109,10 @@ class Calculator extends Component {
           <ActionButton
             displayedSymbol={DIVIDE}
             fontSize="40px"
-            isOrange
+            currentOperation={currentOperation}
+            opertionType="DIVIDE"
             actionMethod={this.handleButtonPress}
+            isOrange
           />
           <ActionButton
             displayedSymbol={7}
@@ -126,6 +128,8 @@ class Calculator extends Component {
           />
           <ActionButton
             displayedSymbol={MULTIPLY}
+            currentOperation={currentOperation}
+            opertionType="MULTIPLY"
             actionMethod={this.handleButtonPress}
             isOrange
           />
@@ -143,6 +147,8 @@ class Calculator extends Component {
           />
           <ActionButton
             displayedSymbol={MINUS}
+            currentOperation={currentOperation}
+            opertionType="MINUS"
             actionMethod={this.handleButtonPress}
             isOrange
           />
@@ -160,6 +166,8 @@ class Calculator extends Component {
           />
           <ActionButton
             displayedSymbol={PLUS}
+            currentOperation={currentOperation}
+            opertionType="PLUS"
             actionMethod={this.handleButtonPress}
             isOrange
           />

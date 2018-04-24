@@ -16,14 +16,15 @@ class Calculations {
     if (this.isClearNext || isValueInfinite) {
       this.currentValue = `${val}`;
       this.isClearNext = false;
-
       return;
     }
 
     if (this.currentValue === '0') {
-      return (this.currentValue = `${val}`);
+      this.currentValue = `${val}`;
+      return;
     } else if (this.currentValue === '-0') {
-      return (this.currentValue = `-${val}`);
+      this.currentValue = `-${val}`;
+      return;
     }
 
     this.currentValue = `${this.currentValue}${val}`;
@@ -49,11 +50,13 @@ class Calculations {
     if (this.isClearNext || isValueInfinite) {
       this.currentValue = '-0';
       this.isClearNext = false;
-
       return;
     }
 
-    if (this.currentValue === '0') return (this.currentValue = '-0');
+    if (this.currentValue === '0') {
+      this.currentValue = '-0';
+      return;
+    }
 
     this.currentValue = `${-this.currentValue}`;
   }
@@ -61,7 +64,10 @@ class Calculations {
   @action.bound
   createDecimal() {
     const isValueInfinite = this.checkForInfinity();
-    if (isValueInfinite) return (this.currentValue = '0.');
+    if (isValueInfinite) {
+      this.currentValue = '0.';
+      return;
+    }
 
     const isAlreadyDecimal = this.currentValue.indexOf('.') > -1;
 

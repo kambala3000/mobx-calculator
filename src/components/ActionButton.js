@@ -9,6 +9,8 @@ class ActionButton extends Component {
     actionMethod: PropTypes.func.isRequired,
     borderRadiusPosition: PropTypes.string,
     fontSize: PropTypes.string,
+    currentOperation: PropTypes.string,
+    opertionType: PropTypes.string,
     isOrange: PropTypes.bool,
     isDoubled: PropTypes.bool,
     alignFromStart: PropTypes.bool,
@@ -26,11 +28,15 @@ class ActionButton extends Component {
       displayedSymbol,
       borderRadiusPosition,
       fontSize,
+      currentOperation,
+      opertionType,
       isOrange,
       isDoubled,
       alignFromStart,
       isDisabled
     } = this.props;
+
+    const highlightBorder = opertionType && currentOperation === opertionType;
 
     return (
       <SCButton
@@ -41,6 +47,7 @@ class ActionButton extends Component {
         alignFromStart={alignFromStart}
         onClick={this.handleClick}
         disabled={isDisabled}
+        highlightBorder={highlightBorder}
       >
         <span tabIndex="-1">{displayedSymbol}</span>
       </SCButton>
@@ -54,13 +61,19 @@ const SCButton = styled.button`
   margin: 0;
   padding: 0;
   outline: none;
+
   font-weight: 400;
   font-size: ${({ fontSize }) => (fontSize ? fontSize : '32px')};
   line-height: 1;
   font-family: 'Lato', sans-serif;
-  border: 1px solid #8a8a8a;
+
+  border-width: ${({ highlightBorder }) => (highlightBorder ? '2px' : '1px')};
+  border-style: solid;
+  border-color: ${({ highlightBorder }) =>
+    highlightBorder ? '#1565C0' : '#8a8a8a'};
   ${({ borderRadiusPosition }) =>
     borderRadiusPosition ? `border-${borderRadiusPosition}-radius: 6px` : null};
+
   background-color: ${({ isOrange }) => (isOrange ? '#FF8E01' : '#E0E0E0')};
   transition: background-color 0.1s linear;
   color: ${({ isOrange }) => (isOrange ? '#fff' : '#212121')};

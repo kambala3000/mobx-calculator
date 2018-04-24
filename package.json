@@ -2,6 +2,7 @@
   "name": "mobx-calculator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kambala3000.github.io/mobx-calculator/",
   "dependencies": {
     "mobx": "^4.2.0",
     "mobx-react": "^5.0.0",
